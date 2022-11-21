@@ -2,7 +2,7 @@ package com.example.demo;
 
 import com.example.demo.model.Page;
 import com.example.demo.workFiles.PageWrapper;
-import com.example.demo.workFiles.creatorOfSiteMap;
+import com.example.demo.workFiles.CreatorOfSiteMap;
 import com.example.demo.model.PageRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +25,13 @@ public class DemoApplication implements CommandLineRunner {
 
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args)  {
         String url = "http://www.playback.ru/";
 
         Page root = PageWrapper.firstPage(url);
 
 
-        Set<Page> set = new ForkJoinPool().invoke(new creatorOfSiteMap(root));
+        Set<Page> set = new ForkJoinPool().invoke(new CreatorOfSiteMap(root));
 
 
         pageRepo.saveAll(set);

@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.RecursiveTask;
 
-public class creatorOfSiteMap extends RecursiveTask<Set<Page>> {
+public class CreatorOfSiteMap extends RecursiveTask<Set<Page>> {
     private Page page;
-    public creatorOfSiteMap(Page page) {
+    public CreatorOfSiteMap(Page page) {
         this.page = page;
     }
 
@@ -18,14 +18,14 @@ public class creatorOfSiteMap extends RecursiveTask<Set<Page>> {
         Set<Page> pages = new HashSet<>();
         pages.add(page);
 
-        List<creatorOfSiteMap> taskList = new ArrayList<>();
+        List<CreatorOfSiteMap> taskList = new ArrayList<>();
         for (Page child : PageWrapper.getChildrenPage(page.getPath())) {
-            creatorOfSiteMap task = new creatorOfSiteMap(child);
+            CreatorOfSiteMap task = new CreatorOfSiteMap(child);
 
             task.fork();
             taskList.add(task);
         }
-        for (creatorOfSiteMap task : taskList) {
+        for (CreatorOfSiteMap task : taskList) {
             pages.addAll(task.join());
         }
 
